@@ -11,13 +11,6 @@ function type() {
     }
   }
 
-// const el = document.querySelector(".content_container");
-
-// el?.addEventListener("mousemove", (e) => {
-// el?.style.setProperty('--x', -e.offsetX /40 + "px");
-// el?.style.setProperty('--y',-e.offsetY /40+ "px");
-// });
-
 function nav_bar() {
   document.getElementById("nav_menu_bars").classList.toggle("change");
   const width = document.getElementById('sidebar').style.width;
