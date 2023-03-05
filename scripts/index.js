@@ -1,4 +1,3 @@
-
 var i = 0;
 var txt = `Be prepared to connect with individuals who share your interests and create strong communities with BunchUp.
 Mark your calendars, we'll be launching soon.`;
@@ -12,12 +11,12 @@ function type() {
     }
   }
 
-const el = document.querySelector(".content_container");
+// const el = document.querySelector(".content_container");
 
-el?.addEventListener("mousemove", (e) => {
-el?.style.setProperty('--x', -e.offsetX /40 + "px");
-el?.style.setProperty('--y',-e.offsetY /40+ "px");
-});
+// el?.addEventListener("mousemove", (e) => {
+// el?.style.setProperty('--x', -e.offsetX /40 + "px");
+// el?.style.setProperty('--y',-e.offsetY /40+ "px");
+// });
 
 function nav_bar() {
   document.getElementById("nav_menu_bars").classList.toggle("change");
