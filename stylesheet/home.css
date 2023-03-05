@@ -1,0 +1,86 @@
+
+.coming_soon{
+    padding-top: 20%;
+    font-family: 'Train One';
+    font-size: 100px;
+    color: #FFFF33;
+    text-align: center;
+    user-select: none;
+}
+
+.coming_soon_sub_heading{
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 22%;
+    margin: auto;
+    width: 50%;
+    font-size: 20px;
+    font-family: 'Quicksand';
+    text-align: center;
+    user-select: none;
+}
+
+.cursor{
+    color: white;
+}
+
+.coming_soon_sub_heading::after{
+    content: "|";
+    font-size: 150%;
+    line-height: 30px;
+}
+
+.blink_cursor::after{
+    animation: blink .75s step-end infinite;
+}
+
+@keyframes blink {
+    from, to { color: transparent }
+    50% { color: white }
+}
+
+@media only screen and (max-width: 811px){
+    .coming_soon_sub_heading{
+        padding-top: 60px;
+        text-align: justify;
+    }
+    .coming_soon{
+        font-size: 70px;
+    }
+}
+
+@media only screen and (max-width: 600px){
+    .coming_soon_sub_heading{
+        padding-top: 60px;
+    }
+    .content_container{
+        padding-top: 20%;
+        height: 600px;
+    }
+    .coming_soon{
+        font-size: 50px;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .coming_soon{
+        padding-top: 20%;
+        font-family: 'Train One';
+        font-size: 50px;
+        color: #FFFF33;
+        text-align: center;
+        user-select: none;
+    }
+    .coming_soon_sub_heading{
+        padding-top: 60px;
+        width: 70%;
+        margin: auto;
+        line-height: 1.5;
+        text-align: justify;
+    }
+
+
+}
+
+
+
