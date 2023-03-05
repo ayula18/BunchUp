@@ -11,30 +11,29 @@
       _b = document.body,
       _d = document.documentElement
   
-    // random helper
     var random = function() {
       if (arguments.length === 1) {
-        // only 1 argument
+
         if (Array.isArray(arguments[0])) {
-          // extract index from array
+
           var index = Math.round(random(0, arguments[0].length - 1))
           return arguments[0][index]
         }
-        return random(0, arguments[0]) // assume numeric
+        return random(0, arguments[0]) 
       } else if (arguments.length === 2) {
-        // two arguments range
+      
         return Math.random() * (arguments[1] - arguments[0]) + arguments[0]
       } else if (arguments.length === 4) {
         //
   
         var array = [arguments[0], arguments[1], arguments[2], arguments[3]]
         return array[Math.floor(Math.random() * array.length)]
-        //return console.log(item)
+       
       }
-      return 0 // default
+      return 0 
     }
   
-    // screen helper
+
     var screenInfo = function(e) {
       var width = Math.max(
           0,
@@ -62,7 +61,7 @@
       }
     }
   
-    // mouse/input helper
+
     var mouseInfo = function(e) {
       var screen = screenInfo(e),
         mousex = e ? Math.max(0, e.pageX || e.clientX || 0) : 0,
@@ -76,7 +75,7 @@
       }
     }
   
-    // point object
+
     var Point = function(x, y) {
       this.x = 0
       this.y = 0
@@ -132,7 +131,7 @@
       }
     }
   
-    // class constructor
+
     var Factory = function(options) {
       this._canvas = null
       this._context = null
@@ -142,25 +141,15 @@
       this._scroll = 0
       this._ribbons = []
       this._options = {
-        // ribbon color HSL saturation amount
         colorSaturation: '0%',
-        // ribbon color HSL brightness amount
         colorBrightness: '100%',
-        // ribbon color opacity amount
         colorAlpha: 0.3,
-        // how fast to cycle through colors in the HSL color space
         colorCycleSpeed: 5,
-        // where to start from on the Y axis on each side (top|min, middle|center, bottom|max, random)
         verticalPosition: 'center',
-        // how fast to get to the other side of the screen
         horizontalSpeed: 200,
-        // how many ribbons to keep on screen at any given time
         ribbonCount: 3,
-        // add stroke along with ribbon fill colors
         strokeSize: 0,
-        // move ribbons vertically by a factor on page scroll
         parallaxAmount: -0.1,
-        // add animation effect to each ribbon section over time
         animateSections: true
       }
       this._onDraw = this._onDraw.bind(this)
@@ -170,11 +159,9 @@
       this.init()
     }
   
-    // class prototype
     Factory.prototype = {
       constructor: Factory,
   
-      // Set and merge local options
       setOptions: function(options) {
         if (typeof options === 'object') {
           for (var key in options) {
@@ -185,7 +172,6 @@
         }
       },
   
-      // Initialize the ribbons effect
       init: function() {
         try {
           this._canvas = document.createElement('canvas')
@@ -215,10 +201,8 @@
         }
         this._onDraw()
       },
-  
-      // Create a new random ribbon and to the list
+
       addRibbon: function() {
-        // movement data
         var dir = Math.round(random(1, 9)) > 5 ? 'right' : 'left',
           stop = 1000,
           hide = 200,
@@ -229,7 +213,6 @@
           startx = dir === 'right' ? min : max,
           starty = Math.round(random(0, this._height))
   
-        // asjust starty based on options
         if (/^(top|min)$/i.test(this._options.verticalPosition)) {
           starty = 0 + hide
         } else if (/^(middle|center)$/i.test(this._options.verticalPosition)) {
@@ -238,15 +221,13 @@
           starty = this._height - hide
         }
   
-        // ribbon sections data
         var ribbon = [],
           point1 = new Point(startx, starty),
           point2 = new Point(startx, starty),
           point3 = null,
           color = 0,
           delay = 0
-  
-        // buils ribbon sections
+
         while (true) {
           if (stop <= 0) break
           stop--
@@ -266,10 +247,7 @@
             point3.subtract(movex, movey)
             if (point2.x <= min) break
           }
-          // point3.clampY( 0, this._height );
-          //console.log(Math.round(random(1, 5)))
           ribbon.push({
-            // single ribbon section
             point1: new Point(point1.x, point1.y),
             point2: new Point(point2.x, point2.y),
             point3: point3,
@@ -284,17 +262,14 @@
           point2.copy(point3)
   
           delay += 4
-          //color += 1
-          //console.log('colorCycleSpeed', color)
         }
         this._ribbons.push(ribbon)
       },
   
-      // Draw single section
       _drawRibbonSection: function(section) {
         if (section) {
           if (section.phase >= 1 && section.alpha <= 0) {
-            return true // done
+            return true 
           }
           if (section.delay <= 0) {
             section.phase += 0.02
@@ -321,7 +296,6 @@
           } else {
             section.delay -= 0.5
           }
-          //console.log('section.color', section.color)
           var s = this._options.colorSaturation,
             l = this._options.colorBrightness,
             c =
@@ -358,25 +332,22 @@
           }
           this._context.restore()
         }
-        return false // not done yet
+        return false
       },
   
-      // Draw ribbons
       _onDraw: function() {
-        // cleanup on ribbons list to rtemoved finished ribbons
         for (var i = 0, t = this._ribbons.length; i < t; ++i) {
           if (!this._ribbons[i]) {
             this._ribbons.splice(i, 1)
           }
         }
   
-        // draw new ribbons
         this._context.clearRect(0, 0, this._width, this._height)
   
         for (
           var a = 0;
           a < this._ribbons.length;
-          ++a // single ribbon
+          ++a 
         ) {
           var ribbon = this._ribbons[a],
             numSections = ribbon.length,
@@ -385,25 +356,22 @@
           for (
             var b = 0;
             b < numSections;
-            ++b // ribbon section
+            ++b 
           ) {
             if (this._drawRibbonSection(ribbon[b])) {
-              numDone++ // section done
+              numDone++
             }
           }
           if (numDone >= numSections) {
-            // ribbon done
             this._ribbons[a] = null
           }
         }
-        // maintain optional number of ribbons on canvas
         if (this._ribbons.length < this._options.ribbonCount) {
           this.addRibbon()
         }
         requestAnimationFrame(this._onDraw)
       },
   
-      // Update container size info
       _onResize: function(e) {
         var screen = screenInfo(e)
         this._width = screen.width
@@ -419,14 +387,12 @@
         }
       },
   
-      // Update container size info
       _onScroll: function(e) {
         var screen = screenInfo(e)
         this._scroll = screen.scrollx
       }
     }
   
-    // export
     return Factory
   })
   
