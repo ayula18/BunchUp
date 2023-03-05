@@ -107,7 +107,6 @@ body{
 .content_container{
     min-height: 700px;
     background-position: var(--x) var(--y);
-    background-image: url('/assests/image/bgcircle.png');
     background-repeat: no-repeat;
     background-size: 100%;
     transition-duration: 0.1s;
